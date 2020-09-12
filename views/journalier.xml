@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <odoo>
+    <data>
+        <record  id="action_view_journalier" model="ir.actions.act_window">
+            <field name="name">Journalier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">journalier.journalier</field>
+            <field name="src_model"></field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html"><p class="oe_view_nocontent_create">Créer un nouveau journalier</p></field>
+        </record>
+        <!--TREE VIEW-->
+        <record  id="view_journalier_tree" model="ir.ui.view">
+            <field name="name">Journalier.tree</field>
+            <field name="model">journalier.journalier</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+              <tree string="Journalier">
+                  <field name="sequence_id" />
+                  <field name="nom" />
+                  <field name="prenom" />
+                  <field name="numero_identification" />
+                  <field name="state" />
+              </tree>
+            </field>
+
+        </record>
+        <!--TREE VIEW-->
+        <record id="view_student_form" model="ir.ui.view">
+            <field name="name">journalier.journalier.form</field>
+            <field name="model">journalier.journalier</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Journalier">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="o,1"/>
+                        <button string="Affecté à une tâche" type="object" name="occuoe_progressbar" attrs="{'invisible':[('state','=','Occupé')]}"/>
+                        <button string="Libèrer" type="object" name="libre_progressbar" attrs="{'invisible':[('state','=','libre')]}"/>
+                    </header>
+                    <sheet>
+                        <group string="Informations Personnelles">
+                            <field name="nom" />
+                            <field name="prenom" />
+                            <field name="genre" />
+                            <field name="date_de_naissance" />
+                            <field name="numero_identification" />
+
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!--SEQUENCE-->
+        <record id="seq_journalier" model="ir.sequence">
+            <field name="name">journalier_sequence</field>
+            <field name="code">journalier.journalier</field>
+            <field name="prefix">JO</field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="False" />
+
+        </record>
+        <menuitem id="menu_journalier"
+                  parent="hr.menu_hr_root"
+                  name="Journaliers"
+                  sequence="25"
+                  action="action_view_journalier"
+                  groups="base.group_user" />
+
+    </data>
+  </odoo>
